@@ -1,4 +1,3 @@
-from tqdm.notebook import tqdm
 from glob import glob
 import spacy
 import nltk
@@ -30,7 +29,7 @@ class SearchEngine(object):
         template = "https://en.wikipedia.org/wiki/"
         self.documents, self.links = [], []
 
-        for fname in tqdm(glob('wiki_data/texts*.txt')):
+        for fname in glob('wiki_data/texts*.txt'):
             with open(fname) as f:
                 document = ""
                 lines = f.readlines()
@@ -62,14 +61,13 @@ class SearchEngine(object):
         That's why the LCP plays a major role in comparing the similarity of words.
 
         Final Similarity criteria**:
-        - the similarity of two words `a` and `b` is ED(a, b) / exp(LCP(a, b))
-        
+        - the similarity of two words `a` and `b` is log(ED(a, b)) / (LCP(a, b) + 1)
 
         * Edit Distance is also called Levenshtein Distance
         ** It might change later
         '''
 
-        result = min([[nltk.edit_distance(word, text) / np.exp(lcp(word, text)), word] for word in self.all_words])
+        result = min([[np.log(nltk.edit_distance(word, text)) / (lcp(word, text) + 1), word] for word in self.all_words])
         
         return result[1]
     
