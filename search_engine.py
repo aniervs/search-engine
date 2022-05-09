@@ -76,9 +76,16 @@ class SearchEngine(object):
         if len(text) == 0:
             return []
         text = text.lower()
-        if text not in self.all_words:
-            text = self.most_similar(text)
-        new_vector = self.vec.transform([text]).todense()
+
+        text2 = ""
+        for t in self.nlp(text):
+            word = t.lemma_
+            if word not in self.all_words:
+                word = self.most_similar(word)
+            text2 += " "
+            text2 += word 
+
+        new_vector = self.vec.transform([text2]).todense()
         _, ind = self.tree.query(new_vector, k = 10)
         return [self.links[i] for i in list(ind[0])]
 
