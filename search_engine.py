@@ -5,7 +5,7 @@ import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.neighbors import KDTree
 
-def lcp(a: str, b:str):
+def lcp(a: str, b:str)-> int: 
     '''
     Computes the longest common prefix of the strings `a` and `b`
     '''
@@ -47,7 +47,7 @@ class SearchEngine(object):
         self.all_words = self.vec.vocabulary_ 
         self.fixing = dict(zip(self.all_words, self.all_words))
 
-    def most_similar(self, text: str):
+    def most_similar(self, text: str)-> str:
         '''
         Returns the most similar word to `text` in the training vocabulary 
         by using Edit Distance* (ED from now on) and Longest Common Prefix
@@ -73,7 +73,7 @@ class SearchEngine(object):
         return result[1]
     
 
-    def do_search(self, text: str):
+    def do_search(self, text: str)-> list:
         if len(text) == 0:
             return []
         text = text.lower()
