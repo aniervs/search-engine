@@ -44,7 +44,8 @@ class SearchEngine(object):
         self.trained_vectors = self.vec.fit_transform(self.documents).todense()
         self.tree = KDTree(self.trained_vectors)
 
-        self.all_words = self.vec.vocabulary_
+        self.all_words = self.vec.vocabulary_ 
+        self.fixing = dict(zip(self.all_words, self.all_words))
 
     def most_similar(self, text: str):
         '''
@@ -80,8 +81,9 @@ class SearchEngine(object):
         text2 = ""
         for t in self.nlp(text):
             word = t.lemma_
-            if word not in self.all_words:
-                word = self.most_similar(word)
+            if word not in self.fixing:
+                self.fixing[word] = self.most_similar(word)
+            word = self.fixing[word]
             text2 += " "
             text2 += word 
 
