@@ -3,7 +3,7 @@
 ## Project Intro/Objective
 This is my final project for the [Text Mining](https://harbour.space/computer-science/courses/text-mining-sergey-khoroshenkikh-487) course at [Harbour.Space University](https://harbour.space), 2022.
 
-There are a only a few specific categories of algorithms, due to the lack of resources to train with more data.
+There are a only a few specific categories of algorithms.
 
 ## Technologies
 - Libraries used: spacy, nltk, numpy, sklearn, streamlit
